@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @order_products = @order.line_items
   end
 
   def create
@@ -46,6 +47,7 @@ class OrdersController < ApplicationController
       product = entry[:product]
       quantity = entry[:quantity]
       order.line_items.new(
+        image: product.image.tiny,
         product: product,
         quantity: quantity,
         item_price: product.price,
